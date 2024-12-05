@@ -2,12 +2,10 @@ package org.example.javaassignment;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -17,7 +15,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class HelloController {
+public class FileHandleController {
 
     ArrayList<String[]> mainDataSet = new ArrayList<String[]>();
 
@@ -29,6 +27,9 @@ public class HelloController {
 
     @FXML
     private TextArea textArea;
+
+    @FXML
+    private Label fileName;
 
     @FXML
     private ChoiceBox<Map.Entry<Integer, String>> choiceBox;
@@ -57,23 +58,23 @@ public class HelloController {
         Map<Integer, Double> data = getData(choiceBox.getValue().getKey());
 
         long startTime = System.nanoTime();
-        ArrayList<Integer> insertionSortResult = Sort.insertionSort(data);
+        ArrayList<Integer> insertionSortResult = SortingAlgorithm.insertionSort(data);
         long insertionSortTime = System.nanoTime() - startTime;
 
         startTime = System.nanoTime();
-        ArrayList<Integer> shellSortResult = Sort.shellSort(data);
+        ArrayList<Integer> shellSortResult = SortingAlgorithm.shellSort(data);
         long shellSortTime = System.nanoTime() - startTime;
 
         startTime = System.nanoTime();
-        ArrayList<Integer> quickSortResult = Sort.quickSort(data);
+        ArrayList<Integer> quickSortResult = SortingAlgorithm.quickSort(data);
         long quickSortTime = System.nanoTime() - startTime;
 
         startTime = System.nanoTime();
-        ArrayList<Integer> mergeSortResult = Sort.mergeSort(data);
+        ArrayList<Integer> mergeSortResult = SortingAlgorithm.mergeSort(data);
         long mergeSortTime = System.nanoTime() - startTime;
 
         startTime = System.nanoTime();
-        ArrayList<Integer> heapSortResult = Sort.heapSort(data);
+        ArrayList<Integer> heapSortResult = SortingAlgorithm.heapSort(data);
         long heapSortTime = System.nanoTime() - startTime;
 
 
@@ -122,6 +123,7 @@ public class HelloController {
         File file = fileChooser.showOpenDialog(null);
 
         if (file != null) {
+            fileName.setText(file.getName());
             ObservableList<String[]> data = FXCollections.observableArrayList();
 
             try (BufferedReader br = new BufferedReader(new FileReader(file))) {

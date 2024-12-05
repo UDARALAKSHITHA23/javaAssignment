@@ -1,10 +1,9 @@
 package org.example.javaassignment;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
 
-public class Sort {
+public class SortingAlgorithm {
     public static ArrayList<Integer> insertionSort(Map<Integer, Double> data){
         ArrayList<Integer> keys = new ArrayList<>(data.keySet());
 
